@@ -6,6 +6,8 @@ FROM python:3.11.4
 # Updating the os
 RUN apt update 
 
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 # Copying requirement file
 COPY ./requirements.txt ./
@@ -23,6 +25,3 @@ RUN pip3 install --no-cache-dir -r ./requirements.txt
 COPY . /home/rtdb
 
 WORKDIR /home/rtdb
-# copy project
-EXPOSE 8000
-CMD ["/home/rtdb/entrypoint.sh"]
