@@ -1,0 +1,39 @@
+{% extends "primary.html" %}
+
+{% block title %}
+  RT Database - Project
+{% endblock %}
+
+
+{% block content %}
+<h1>{{ project.projectName }}</h1>
+
+{% if project.Status.lastUpdated != None %}
+<h3>{{ project.Status.active }}</h3>
+{% endif %}
+
+{% if project.Status.lastUpdated != None %}
+<h3>{{ project.Status.lastUpdated }}</h3>
+
+{% endif %}
+
+<p>{{ project.projectDescription }}</p>
+<h2>Project Social Media</h2>
+<ul>
+{% for name,link in socials.items %}
+    {% if link != "" %}
+        <li><a href="{{ link }}">{{ name }}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>
+<h2>Project Members</h2>
+<ul>
+{% for person in people %}
+    <li><a href="/details/person/{{ person.hID }}/">{{ person.firstname }} {{ person.lastname }}</a></li>
+{% endfor %}
+</ul>
+<footer>
+  <br><a href="/editProject/{{ project.pID  }}">Edit Project Details</a>
+  <br><a href="/delete/project/{{ project.pID }}">Delete Project</a>
+</footer>
+{% endblock %}

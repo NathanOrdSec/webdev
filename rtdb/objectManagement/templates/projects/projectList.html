@@ -1,0 +1,26 @@
+{% extends "primary.html" %}
+
+{% block title %}
+  RT Database - Projects
+{% endblock %}
+
+
+{% block content %}
+  <h1>RT Individuals Database</h1>
+  <table border="1">
+    <tr>
+        <td>Project Name</td>
+        {% if perms.objectManagement.can_mark_approved %}
+        <td>Approved</td>
+        {% endif %}
+    </tr>
+    {% for project in allProjects %}
+    <tr>
+        <td><a href="/details/project/{{ project.pID }}/">{{ project.projectName }}</a></td>
+        {% if perms.objectManagement.can_mark_approved %}
+        <td><p>{{ project.projectStatus.approved }}</p></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "primary.html" %}
+
+{% block title %}
+  RT Database - Individuals
+{% endblock %}
+
+
+{% block content %}
+  <h1>RT Individuals Database</h1>
+  <table border="1">
+    <tr>
+        <td>Photo</td>
+        <td>Name</td>
+        <td>Projects</td>
+        {% if perms.objectManagement.can_mark_approved %}
+        <td>Approved</td>
+        {% endif %}
+    </tr>
+    {% for person in allPeople %}
+    <tr>
+        <td><a href="/details/person/{{ person.hID }}/"><img src="{{ MEDIA_URL }}{{ person.sID.image }}" title="{{ person.firstname }} {{ person.lastname }}" alt_text="{{ person.firstname }} {{ person.lastname }}" width="150" height="150" /></a></td>
+        <td><a href="/details/person/{{ person.hID }}/">{{ person.firstname }} {{ person.lastname }}</a></td>
+        <td>
+          <ul>
+            {% for project in person.pID.all %}
+              <li><a href="/details/project/{{ project.pID }}/">{{ project.projectName }}</a></li>
+            {% endfor %}
+          </ul>
+        </td>
+        {% if perms.objectManagement.can_mark_approved %}
+        <td><p>{{ person.personStatus.approved }}</p></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

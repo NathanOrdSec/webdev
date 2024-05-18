@@ -1,0 +1,31 @@
+{% extends "primary.html" %}
+
+{% block title %}
+  RT Database - Individual
+{% endblock %}
+
+
+{% block content %}
+<h1>{{ person.firstname }} {{ person.lastname }}</h1>
+<img src="{{ MEDIA_URL }}{{ person.sID.image }}" title="{{ person.firstname }} {{ person.lastname }}" alt_text="{{ person.firstname }} {{ person.lastname }}" />
+<h2>Social Media</h2>
+<ul>
+{% for name,link in socialMedia.items %}
+    {% if link != "" %}
+        <li><a href="{{ link }}">{{ name }}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>
+<h2>Projects</h2>
+{% for project in projects %}
+<tr>
+    <td><a href="/details/project/{{ project.pID }}/">{{ project.projectName }}</a></td>
+    <td><p>Last Updated: {{ project.Status.lastUpdated }}</p></td>
+    <td><p>Status: {{ project.Status.active }}</p></td>
+</tr>
+{% endfor %}
+<footer>
+  <br><a href="/editPerson/{{ person.hID }}">Edit Person Details</a>
+  <br><a href="/delete/person/{{ person.hID }}">Delete Person</a>
+</footer>
+{% endblock %}
